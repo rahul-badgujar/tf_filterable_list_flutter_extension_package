@@ -106,8 +106,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
           Expanded(
-            child: StreamBuilder<List<int>>(
-              stream: numbersList.streamOfFilteredItems,
+            // Use onChangesBuilder to build a automatically updating UI whenever filtered list changes.
+            child: numbersList.onChangesBuilder(
               builder: (context, snapshot) {
                 final filteredNumbers = snapshot.data;
                 if (filteredNumbers != null) {
