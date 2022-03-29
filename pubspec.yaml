@@ -1,6 +1,7 @@
 name: tf_filterable_list_flutter_extension
-description: A new Flutter package project.
-version: 0.0.1
+description: Flutter Extension for tf_filterable_list package with support of useful widgets.
+version: 1.0.0
+homepage: https://github.com/rahul-badgujar/tf_filterable_list_flutter_extension_package.git
 publish_to: none
 
 environment:

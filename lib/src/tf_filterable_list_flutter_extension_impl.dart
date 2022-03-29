@@ -5,7 +5,7 @@ import 'package:tf_filterable_list/tf_filterable_list.dart';
 /// The builder listens to changes in filtered list and updates UI accordingly.
 extension TfFlutterFilterableList<T> on TfFilterableList<T> {
   Widget onChangesBuilder(
-      {required Widget Function(BuildContext, AsyncSnapshot<dynamic>)
+      {required Widget Function(BuildContext, AsyncSnapshot<List<T>>)
           builder}) {
     return StreamBuilder<List<T>>(
       stream: streamOfFilteredItems,

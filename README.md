@@ -1,39 +1,93 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# tf_filterable_list_flutter_extension
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+Flutter Extension for tf_filterable_list package with support of useful widgets.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
+## Supported Dart Versions
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Flutter SDK: ">=1.17.0"
 
-## Features
+## Installation
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Add the Package
 
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
-```dart
-const like = 'sample';
+```yaml
+dependencies:
+  tf_filterable_list_flutter_extension:
+    git:
+      url: https://github.com/rahul-badgujar/tf_filterable_list_flutter_extension_package.git
+      ref: main
 ```
 
-## Additional information
+## How to use
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+Import the package in your dart file
+
+```dart
+import 'package:tf_filterable_list_flutter_extension/tf_filterable_list_flutter_extension.dart';
+```
+
+**NOTE: This package is Flutter Extesion of Dart Package [tf_filterable_list](https://github.com/rahul-badgujar/tf_filterable_list_dart_package#readme) to provide support for widgets for various use cases with Filterable Lists.**
+
+### Creating Instance
+
+```dart
+// Creating an instance of TfFilterableList.
+// Provide template parameter T matching the listOfFilteredItems
+ type of items the filterable list is going to store.
+final instance = TfFilterableList<T>();
+```
+
+### Initializing Instance
+
+```dart
+// MUST initialize the instance before using it.
+// With Flutter, the initailization can be done in initState() method of Statefull Widget.
+@override
+void initState() {
+    super.initState();
+    // Must initialize the instance before using.
+    instance.init();
+    // You can add initial items to list while initializing only. (Optional)
+    // E.g., Let us add 100 numbers to the list.
+    instance.addItems(List<int>.generate(100, (index) => index + 1));
+    // Applying the changes.
+    instance.apply();
+}
+```
+
+### Various operations on TfFilterableList Instance
+
+You can perform more useful operations on the TfFilterableList Instance. This are well explained in the parent dart package of this extesion package. [Learn more from tf_filterable_list dart package](https://github.com/rahul-badgujar/tf_filterable_list_dart_package#readme)
+
+### Using onChangesBuilder()
+
+You can use onChangesBuilder() method to build an automatically updating UI whenever filtered list changes. It listens to the change in filterable list and rebuilds the widget on changes.
+
+```dart
+instance.onChangesBuilder(
+    builder: (context, snapshot) {
+        final listOfFilteredItems= snapshot.listOfFilteredItems;
+        if (listOfFilteredItems!= null) {
+            // Return the widget to show list of filtered items.
+            return _buildList(listOfFilteredItems);
+        }
+        // Return widget to show progress indication while the list loads.
+        return const Center(
+            child: CircularProgressIndicator(),
+        );
+    },
+),
+```
+
+### Disposing the Instance
+
+```dart
+// A good practice is to dispose the instance after use.
+// With Flutter, you can dispose the instance in dispose() method of Statefull Widget.
+@override
+void dispose() {
+    // Make sure to dispose the instance after use.
+    instance.dispose();
+    super.dispose();
+}
+```
